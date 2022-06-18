@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import PageNotFound from './pages/PageNotFound';
+
 
 function App() {
   return (
@@ -11,6 +13,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<PublicRoutes><Login /></PublicRoutes>} />
+          <Route path="*" element={<PageNotFound />} />
           <Route path="/register" element={<PublicRoutes><Register /></PublicRoutes>} />
           <Route path="/dashboard" element={<ProtectedRoutes> <Dashboard /></ProtectedRoutes>} />
         </Routes>
