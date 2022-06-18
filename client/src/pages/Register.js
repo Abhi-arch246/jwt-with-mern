@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import loginpic from '../online.svg'
@@ -9,8 +10,9 @@ function Register() {
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
     const [cpassword, setCpassword] = useState('')
+    const navigate = useNavigate()
 
-    const registerSubmit = (e) => {
+    const registerSubmit = async (e) => {
         e.preventDefault()
         if (password === cpassword) {
             const userData = {
@@ -18,9 +20,46 @@ function Register() {
                 user,
                 password
             }
-            console.log(userData);
+            // console.log(userData);
+            await axios.post('/auth/register', userData)
+                .then(log => {
+                    if (log.data.success) {
+                        toast.success(log.data.msg, {
+                            position: "top-right",
+                            autoClose: 5000,
+                            theme: "colored"
+
+                        })
+                        navigate('/dashboard')
+                        localStorage.setItem("data", JSON.stringify(userData))
+                    } else {
+                        toast.error(log.data.msg, {
+                            position: "top-right",
+                            autoClose: 5000,
+                            theme: "colored"
+
+                        })
+                    }
+
+                })
+
+                .catch(error => {
+                    toast.error(error.data.msg, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        theme: "colored"
+
+                    })
+                })
+
         } else {
             console.log("Passwords doesn't match");
+            toast.error("Passwords doesn't match", {
+                position: "top-right",
+                autoClose: 5000,
+                theme: "colored"
+
+            })
         }
 
     }

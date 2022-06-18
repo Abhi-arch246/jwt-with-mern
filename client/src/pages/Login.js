@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import loginpic from '../online.svg'
@@ -7,24 +8,46 @@ import loginpic from '../online.svg'
 function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
-    const loginSubmit = (e) => {
+    const loginSubmit = async (e) => {
         e.preventDefault()
         const userData = {
             email,
             password
         }
-        toast.success("Success", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored"
+        try {
+            axios.post('/api/auth/login', userData)
+                .then(log => {
+                    if (log.data.success) {
+                        toast.success(log.data.msg, {
+                            position: "top-right",
+                            autoClose: 5000,
+                            theme: "colored"
 
-        })
+                        })
+                        navigate('/dashboard')
+                        localStorage.setItem("data", JSON.stringify(log.data.token))
+
+                    } else {
+                        toast.error(log.data.msg, {
+                            position: "top-right",
+                            autoClose: 5000,
+                            theme: "colored"
+
+                        })
+                    }
+
+                })
+        } catch (error) {
+            toast.error(error.data.msg, {
+                position: "top-right",
+                autoClose: 5000,
+                theme: "colored"
+
+            })
+        }
+
     }
 
     return (
