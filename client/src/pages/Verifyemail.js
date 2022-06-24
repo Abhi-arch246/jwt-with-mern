@@ -12,7 +12,7 @@ function Verifyemail() {
             console.log(params.token);
             const res = await axios.post('/auth/verify-email', { token: params.token })
             console.log(res.data);
-            toast.success(res.data.msg, {
+            toast.success("Email verified successfully", {
                 position: "top-right",
                 autoClose: 5000,
                 theme: "colored"

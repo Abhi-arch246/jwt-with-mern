@@ -30,7 +30,7 @@ function Register() {
                             theme: "colored"
 
                         })
-                        toast.success("Login page will be redirected", {
+                        toast.success("Mail sent please verify you email", {
                             position: "top-right",
                             autoClose: 5000,
                             theme: "colored"

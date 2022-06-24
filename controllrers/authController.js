@@ -37,15 +37,21 @@ const loginUser = async (req, res) => {
     const user = await User.findOne({ email })
     if (user) {
         if (user && (await bcrypt.compare(password, user.password))) {
-            const data = {
-                _id: user._id,
-                user: user.user,
-                email: user.email
+            if (user.isVerified) {
+                const data = {
+                    _id: user._id,
+                    user: user.user,
+                    email: user.email
+                }
+
+                const token = jwt.sign(data, process.env.SECRET, { expiresIn: '30d' })
+
+                return res.status(200).send({ success: true, msg: "Successful login", token: token })
+            } else {
+                return res.status(200).send({ success: false, msg: "Email not verified" })
+
             }
 
-            const token = jwt.sign(data, process.env.SECRET, { expiresIn: '30d' })
-
-            return res.status(200).send({ success: true, msg: "Successful login", token: token })
         }
         else {
             return res.status(200).send({ success: false, msg: "Invalid password" })
