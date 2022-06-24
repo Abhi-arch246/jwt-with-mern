@@ -1,4 +1,5 @@
 const User = require('../models/userModel')
+const Token = require('../models/tokenModel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const mailSender = require('../config/mailSender')
@@ -54,10 +55,28 @@ const loginUser = async (req, res) => {
     }
 }
 
+const verifyEmail = async (req, res) => {
+    try {
+        const tokenDetail = await Token.findOne({ token: req.body.token })
+        // console.log(tokenDetail);
+        if (tokenDetail) {
+            await User.findOneAndUpdate({ _id: tokenDetail.userid, isVerified: true })
+            await Token.findOneAndDelete({ token: req.body.token })
+            res.send({ success: true, msg: 'Email verified Successfully' })
+        } else {
+            res.send({ success: false, msg: 'Invalid Token' })
+
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    verifyEmail
 }

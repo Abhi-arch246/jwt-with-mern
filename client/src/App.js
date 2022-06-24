@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import PageNotFound from './pages/PageNotFound';
+import Verifyemail from './pages/Verifyemail';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PublicRoutes><Login /></PublicRoutes>} />
           <Route path="*" element={<PageNotFound />} />
+          <Route path="/verify/:token" element={<PublicRoutes><Verifyemail /></PublicRoutes>} />
           <Route path="/register" element={<PublicRoutes><Register /></PublicRoutes>} />
           <Route path="/dashboard" element={<ProtectedRoutes> <Dashboard /></ProtectedRoutes>} />
         </Routes>
