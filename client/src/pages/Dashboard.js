@@ -8,12 +8,14 @@ function Dashboard() {
 
     const loadData = async () => {
         try {
-            const token = JSON.parse(localStorage.getItem('data'))
-            const res = await axios.get('/api/user/user-data', {
+            const token = await JSON.parse(localStorage.getItem('data'))
+            console.log(token);
+            const res = await axios.get('user/userdata', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
+
             if (res.data.success) {
 
                 setName(res.data.data)
@@ -40,7 +42,6 @@ function Dashboard() {
         <>
             <div className='bg-success p-5'>
                 <h2 className='text-white text-center'>Dashboard</h2>
-
             </div>
             <div className='mt-5 p-3'>
                 <button className='btn mt-3 btn-danger float-end me-3' onClick={logout}>Logout</button>

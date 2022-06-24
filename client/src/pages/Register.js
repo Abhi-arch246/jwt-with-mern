@@ -20,8 +20,8 @@ function Register() {
                 user,
                 password
             }
-            // console.log(userData);
-            await axios.post('/auth/register', userData)
+            console.log(userData);
+            await axios.post('auth/register', userData)
                 .then(log => {
                     if (log.data.success) {
                         toast.success(log.data.msg, {
@@ -30,8 +30,17 @@ function Register() {
                             theme: "colored"
 
                         })
-                        navigate('/dashboard')
-                        localStorage.setItem("data", JSON.stringify(userData))
+                        toast.success("Login page will be redirected", {
+                            position: "top-right",
+                            autoClose: 5000,
+                            theme: "colored"
+
+                        })
+                        setTimeout(function () {
+                            navigate('/')
+                        }, 3000);
+
+                        // localStorage.setItem("data", JSON.stringify(userData))
                     } else {
                         toast.error(log.data.msg, {
                             position: "top-right",

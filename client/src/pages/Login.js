@@ -17,7 +17,7 @@ function Login() {
             password
         }
         try {
-            axios.post('/api/auth/login', userData)
+            axios.post('auth/login', userData)
                 .then(log => {
                     if (log.data.success) {
                         toast.success(log.data.msg, {

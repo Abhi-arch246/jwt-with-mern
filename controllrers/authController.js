@@ -1,6 +1,8 @@
 const User = require('../models/userModel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const mailSender = require('../config/mailSender')
+
 
 const registerUser = async (req, res) => {
 
@@ -17,6 +19,8 @@ const registerUser = async (req, res) => {
                 email: email,
                 password: hashedPassword
             })
+            console.log(data.email);
+            await mailSender(data, 'verify-email')
 
             return res.status(200).send({ success: true, msg: "Registered Successfully" })
         } catch (error) {
