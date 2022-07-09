@@ -15,6 +15,7 @@ module.exports = async (data, mailType) => {
             },
         });
 
+        // Mail Verification
         const verifyToken = await bcrypt.hashSync(data._id.toString(), 10).replaceAll('/', '')
         const token = new Token({ userid: data._id, token: verifyToken })
         await token.save()
