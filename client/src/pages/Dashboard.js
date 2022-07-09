@@ -22,7 +22,6 @@ function Dashboard() {
             })
 
             if (res.data.success) {
-
                 setName(res.data.data)
             }
             else {
@@ -57,6 +56,7 @@ function Dashboard() {
                 <div className='mt-5 p-3'>
                     <button className='btn mt-3 btn-danger float-end me-3' onClick={logout}>Logout</button>
                     <br />
+
                     <h2 className='mt-5'>Name: {name?.user}</h2>
                     <h2>Email: {name?.email}</h2>
                 </div>
@@ -68,13 +68,13 @@ function Dashboard() {
                             <form className='mt-5 mx-4' onSubmit={handleSubmit(updateSubmit)}>
                                 <div className="form-group">
                                     <h5>Name</h5>
-                                    <input type="text" className="form-control" placeholder="Enter name" value={name.user} required {...register("user", { required: true, minLength: 6 })} />
+                                    <input type="text" className="form-control" placeholder="Enter name" required {...register("user", { required: true, minLength: 6 })} />
 
                                     {errors.user && <p className='text-danger mt-1'>Name should be of atleast 6 characters</p>}
                                 </div>
                                 <div className='form-group mt-4'>
                                     <h5>Email address</h5>
-                                    <input type="email" value={name.email} className="form-control" readOnly placeholder="Enter email" required {...register("email",
+                                    <input type="email" value={name?.email} className="form-control" readOnly placeholder="Enter email" required {...register("email",
                                         {
                                             required: true,
                                             pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/

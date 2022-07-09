@@ -48,7 +48,7 @@ const loginUser = async (req, res) => {
 
                 return res.status(200).send({ success: true, msg: "Successful login", token: token })
             } else {
-                return res.status(200).send({ success: false, msg: "Email not verified" })
+                return res.status(200).send({ success: false, msg: "Email not verified, Please check you inbox" })
 
             }
 

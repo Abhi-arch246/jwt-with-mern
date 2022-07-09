@@ -51,7 +51,7 @@ function Login() {
     }
 
     return (
-        <div className='row bgcolor pt-4'>
+        <div className='row bgcolor py-4'>
             <h2 className='text-white text-center pb-1'>Ay! Captain Welcome back</h2>
 
             <div className="col-md-6 text-center py-5 mt-3">
