@@ -8,8 +8,8 @@ const app = express()
 
 connectDb();
 app.use(express.json())
-app.use('/api/auth/', authRoute)
-app.use('/api/user/', userRoute)
+app.use('/auth/', authRoute)
+app.use('/user/', userRoute)
 
 
 if (process.env.NODE_ENV === 'production') {
